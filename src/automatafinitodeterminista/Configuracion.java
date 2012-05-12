@@ -1,3 +1,7 @@
+/* 
+ *  Copyright (C) 2011  Gerardo Martín Roldán
+ *  GNU General Pulbic License
+ */
 package automatafinitodeterminista;
 
 import javax.swing.JOptionPane;

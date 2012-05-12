@@ -1,3 +1,7 @@
+/* 
+ *  Copyright (C) 2011  Gerardo Martín Roldán
+ *  GNU General Pulbic License
+ */
 package gui.ayuda;
 
 public class AcercaDeDialog extends javax.swing.JDialog {
