@@ -33,26 +33,8 @@ public class Alfabeto {
         return (simbolo<'A' || simbolo>'Z')? false:true;
     }
     
-    public boolean pertenece(String simbolo){
-        boolean resultado=false;
-        for(int i=0;i<simbolos.size();i++){
-            if(simbolos.get(i).equals(simbolo)){
-                resultado=true;
-                break;
-            }
-        }        
-        return resultado;
-    }    
-    
-    public boolean pertenece(char simbolo){
-        boolean resultado=false;
-        for(int i=0;i<simbolos.size();i++){
-            if(simbolos.get(i).charAt(0)==simbolo){
-                resultado=true;
-                break;
-            }
-        }        
-        return resultado;
+    public boolean pertenece(String simbolo){       
+        return simbolos.contains(simbolo);
     }
 
     public ArrayList<String> getSimbolos() {

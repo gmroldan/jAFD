@@ -43,25 +43,11 @@ public class AutomataFinito {
     }
     
     private static boolean pertenece(int estadoFinal){
-        boolean resultado=false;
-        for(int i=0;i<estados.size();i++){
-            if(estados.get(i).equals(estadoFinal)){
-                resultado=true;
-                break;
-            }
-        }
-        return resultado;
+        return estados.contains(estadoFinal);
     }
     
     private static boolean perteneceFinales(int estado){
-        boolean resultado=false;
-        for(Integer e:estadosFinales){
-            if(e==estado){
-                resultado=true;
-                break;
-            }
-        }        
-        return resultado;
+        return estadosFinales.contains(estado);
     }
     
     public static void ingresarTransiciones(int estadoActual,String simbolo,int proximoEstado){             
@@ -97,7 +83,7 @@ public class AutomataFinito {
     
     private int proximoEstado(int c,int p){
         int proximoQ=0;
-        for(Transicion t:getTransiciones()){
+        for(Transicion t:transiciones){
             if(t.getEstadoActual()==c && t.getSimbolo().equals(alfabeto.getSimbolos().get(p)))
                 proximoQ=t.getProximoEstado();
         }
@@ -106,7 +92,7 @@ public class AutomataFinito {
     
     public boolean aceptarPalabra(int posicioneCabezal){
         boolean resultado=false;
-        for(Integer e:getEstadosFinales()){
+        for(Integer e:estadosFinales){
             if(e==posicioneCabezal){
                 resultado=true;
                 break;

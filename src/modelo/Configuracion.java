@@ -6,7 +6,6 @@ package modelo;
 
 import javax.swing.JOptionPane;
 
-
 public class Configuracion {
     private Alfabeto alfabeto;
     private String palabra;    
@@ -18,7 +17,7 @@ public class Configuracion {
     
     public void ingresarPalabra(String palabra){        
         if(!perteneceAlfabeto(palabra))
-            JOptionPane.showMessageDialog(null, "Verifique la cadena ingresada", "ERROR", JOptionPane.ERROR_MESSAGE);                    
+            JOptionPane.showMessageDialog(null, "Verifique la cadena ingresada", "ERROR", JOptionPane.ERROR_MESSAGE);//modificar esta línea
         else
             this.palabra=palabra;                        
     }
@@ -26,7 +25,7 @@ public class Configuracion {
     public boolean perteneceAlfabeto(String palabra){
         boolean resultado=true;
         for(int i=0;i<palabra.length();i++){
-            if(!getAlfabeto().pertenece(palabra.charAt(i))){
+            if(!alfabeto.pertenece(String.valueOf(palabra.charAt(i)))){
                 resultado=false;
                 break;
             }
