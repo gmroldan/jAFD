@@ -5,20 +5,29 @@
 package modelo;
 
 public class Transicion {
+    /*
+     * Atributos
+     */
     private int estadoActual;
     private int proximoEstado;
     private String simbolo;
     
-    public Transicion(){
-        
-    }
+    /*
+     * Constructores
+     */
+    //Constructor por defecto
+    public Transicion(){}
     
-    public Transicion(int estadoActual,String simbolo,int proximoEstado){
-        this.estadoActual=estadoActual;
-        this.simbolo=simbolo;
-        this.proximoEstado=proximoEstado;
+    //Constructor con parámetros
+    public Transicion(int estadoActual, String simbolo, int proximoEstado){
+        this.estadoActual = estadoActual;
+        this.simbolo = simbolo;
+        this.proximoEstado = proximoEstado;
     }
 
+    /*
+     * Métodos accesores y mutadores
+     */
     public int getEstadoActual() {
         return estadoActual;
     }
