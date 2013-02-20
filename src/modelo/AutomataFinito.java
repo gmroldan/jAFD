@@ -5,16 +5,17 @@
 package modelo;
 
 import java.util.ArrayList;
+import modelo.excepciones.MachineException;
 
 
 public class AutomataFinito {
     /*
      * Atributos
      */
-    private static ArrayList<Integer> estados;
-    private static ArrayList<Integer> estadosFinales;
-    private static ArrayList<Transicion> transiciones;
-    private static Alfabeto alfabeto;      
+    private ArrayList<Integer> estados;
+    private ArrayList<Integer> estadosFinales;
+    private ArrayList<Transicion> transiciones;
+    private Alfabeto alfabeto;      
     private Configuracion configuracion;
         
     /*
@@ -29,13 +30,18 @@ public class AutomataFinito {
     /*
      * Métodos
      */    
-    public static void ingresarEstados(int cantidad){        
+    public void ingresarAlfabeto(String[] texto) throws Exception {
+        alfabeto = new Alfabeto();
+        alfabeto.ingresarSimbolos(texto.length, texto);
+    }
+    
+    public void ingresarEstados(int cantidad){        
         for(int i = 0; i < cantidad; i++) {
             estados.add(i);
         }        
     }
     
-    public static void ingresarEstadosFinales(String[] texto) throws Exception{         
+    public void ingresarEstadosFinales(String[] texto) throws Exception{         
         for(int i = 0; i < texto.length; i++){
             if(Integer.parseInt(texto[i]) > 0 && Integer.parseInt(texto[i]) < getEstados().size()){
                 if(pertenece(Integer.parseInt(texto[i]))){
@@ -56,16 +62,24 @@ public class AutomataFinito {
         }
     }
     
-    private static boolean pertenece(int estadoFinal){
+    private boolean pertenece(int estadoFinal){
         return estados.contains(estadoFinal);
     }
     
-    private static boolean perteneceFinales(int estado){
+    private boolean perteneceFinales(int estado){
         return estadosFinales.contains(estado);
     }
     
-    public static void ingresarTransiciones(int estadoActual, String simbolo, int proximoEstado){             
-        transiciones.add(new Transicion(estadoActual, simbolo, proximoEstado));
+    public String getSimbolo(int index) {
+        return alfabeto.getSimbolos().get(index);
+    }
+    
+    public void nuevaTransicion(int estadoActual, String simbolo, int proximoEstado) throws MachineException{
+        if(pertenece(proximoEstado)) {
+            transiciones.add(new Transicion(estadoActual, simbolo, proximoEstado));
+        } else {
+            throw new MachineException("El estado ingresado no pertenece al Conjunto de Estados del AFD");
+        }
     }
     
     public String simular(String palabra){        
@@ -107,7 +121,7 @@ public class AutomataFinito {
         return proximoQ;
     }
     
-    public boolean aceptarPalabra(int posicioneCabezal){
+    private boolean aceptarPalabra(int posicioneCabezal){
         boolean resultado = false;
         for(Integer e: estadosFinales){
             if(e == posicioneCabezal){
@@ -125,23 +139,23 @@ public class AutomataFinito {
         return configuracion;
     }   
 
-    public static ArrayList<Integer> getEstados() {
+    public ArrayList<Integer> getEstados() {
         return estados;
     }
 
-    public static ArrayList<Integer> getEstadosFinales() {
+    public ArrayList<Integer> getEstadosFinales() {
         return estadosFinales;
     }
 
-    public static Alfabeto getAlfabeto() {
+    public Alfabeto getAlfabeto() {
         return alfabeto;
     }
 
-    public static void setAlfabeto(Alfabeto alfabeto) {
-        AutomataFinito.alfabeto = alfabeto;
+    public void setAlfabeto(Alfabeto alfabeto) {
+        this.alfabeto = alfabeto;
     }
         
-    public static ArrayList<Transicion> getTransiciones() {
+    public ArrayList<Transicion> getTransiciones() {
         return transiciones;
     }
 }

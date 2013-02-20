@@ -6,17 +6,19 @@ package vista;
 
 import controlador.ControllerVP;
 import javax.swing.JOptionPane;
-import modelo.AutomataFinito;
+import modelo.excepciones.MachineException;
 import vista.ayuda.AcercaDeDialog;
 import vista.dialogs.EstadosFinalesDialog;
+import vista.dialogs.NuevaTransicionDialog;
 import vista.dialogs.NuevoAlfabeto;
 import vista.dialogs.NuevosEstados;
+import vista.dialogs.TransicionesDialog;
 
 public class VentanaPrincipal extends javax.swing.JFrame {
     private ControllerVP controlador;    
     
     public VentanaPrincipal() {
-        controlador=new ControllerVP();
+        controlador = new ControllerVP();
         initComponents();
         setLocationRelativeTo(null);        
     }
@@ -49,6 +51,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("jAFD - Simulador de Autómata Finito Determinista");
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Información del AFD"));
 
@@ -240,24 +243,19 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void opcionSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionSalirActionPerformed
-        // TODO add your handling code here:
-        if(JOptionPane.showConfirmDialog(this, "¿Desea salir de la aplicación?", "", JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION)
-            System.exit(0);        
+        if(JOptionPane.showConfirmDialog(this, "¿Desea salir de la aplicación?", null, JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }        
     }//GEN-LAST:event_opcionSalirActionPerformed
 
     private void opcionNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionNuevoActionPerformed
-        // TODO add your handling code here:
-        if(JOptionPane.showConfirmDialog(this, "Se va a generar un nuevo AFD. ¿Desea continuar?", "", JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION){
+        if(JOptionPane.showConfirmDialog(this, "Se va a generar un nuevo AFD. ¿Desea continuar?", null, JOptionPane.YES_NO_OPTION)==JOptionPane.YES_OPTION){
             try{            
-            controlador.nuevoAFD();
-            new NuevoAlfabeto(this, true).setVisible(true);            
-            alfabetoLabel.setText(AutomataFinito.getAlfabeto().getSimbolos().toString());
-            new NuevosEstados(this, true).setVisible(true);
-            estadosLabel.setText(AutomataFinito.getEstados().toString());
-            new EstadosFinalesDialog(this, true).setVisible(true);
-            estadosFinalesLabel.setText(AutomataFinito.getEstadosFinales().toString());                       
-            JOptionPane.showMessageDialog(this, "Se iniciará la carga de la tabla de transiciones", "", JOptionPane.INFORMATION_MESSAGE);            
-            new NuevaTransicionDialog(this, true).setVisible(true);
+                controlador.nuevoAFD();
+                ingresarAlfabeto();
+                ingresarEstados();
+                ingresarEstadosFinales();
+                ingresarTransiciones();
             }catch(Exception e)        {
                 JOptionPane.showMessageDialog(this, "No se pudo crear correctamente el AFD", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -265,7 +263,6 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_opcionNuevoActionPerformed
 
     private void botonEvaluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEvaluarActionPerformed
-        // TODO add your handling code here:
         textSimulacion.setText(null);
         try{            
             textSimulacion.setText(controlador.simularAFD(textPalabra.getText()));
@@ -275,19 +272,59 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_botonEvaluarActionPerformed
 
     private void opcionAcercaDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionAcercaDeActionPerformed
-        // TODO add your handling code here:
         new AcercaDeDialog(this, true).setVisible(true);
     }//GEN-LAST:event_opcionAcercaDeActionPerformed
 
     private void opcionTransicionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionTransicionesActionPerformed
-        // TODO add your handling code here:        
         try{
-            new TransicionesDialog(this, true).setVisible(true);
+            if(controlador.getAfdActual() != null) {
+                new TransicionesDialog(this, true, controlador.getTransiciones()).setVisible(true);
+            } else {
+                throw new Exception();
+            }
         }catch(Exception e){
             JOptionPane.showMessageDialog(this, "No se detectó ningún AFD", "Error", JOptionPane.ERROR_MESSAGE);
         }        
     }//GEN-LAST:event_opcionTransicionesActionPerformed
 
+    private void ingresarAlfabeto() throws Exception {
+        NuevoAlfabeto dialog = new NuevoAlfabeto(this, true);
+        controlador.ingresarAlfabeto(dialog.getAlfabetoAuxiliar());
+        alfabetoLabel.setText(controlador.getAlfabeto());
+    }
+    
+    private void ingresarEstados() {
+        NuevosEstados dialog = new NuevosEstados(this, true);
+        controlador.ingresarEstados(dialog.getCantidadEstados());
+        estadosLabel.setText(controlador.getEstados());
+    }
+    
+    private void ingresarEstadosFinales() throws Exception {
+        EstadosFinalesDialog dialog = new EstadosFinalesDialog(this, true);
+        controlador.ingresarEstadosFinales(dialog.getEstadosFinales());
+        estadosFinalesLabel.setText(controlador.getEstadosFinales());
+    }
+    
+    private void ingresarTransiciones() {
+        JOptionPane.showMessageDialog(this, "Se iniciará la carga de la tabla de transiciones", "", JOptionPane.INFORMATION_MESSAGE);
+        /*
+         * Las transiciones se cargan correctamente.
+         * Se debe mejorar el manejo de errores en este método para evitar interrumpir
+         * el proceso de creación del AFD.
+         */
+        for(int i = 0; i < controlador.getCantidadEstados(); i++) {
+            for(int j = 0; j < controlador.getCantidadSimbolos(); j++) {
+                String simboloActual = controlador.getSimbolo(j);
+                NuevaTransicionDialog dialog = new NuevaTransicionDialog(this, true, i, simboloActual);
+                try {
+                    controlador.nuevaTransicion(i, simboloActual, dialog.getProximoEstado());
+                } catch (MachineException ex) {
+                    JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }            
+        }
+    }
+    
     public static void main(String args[]) {
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.

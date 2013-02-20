@@ -4,17 +4,16 @@
  */
 package vista.dialogs;
 
-import controlador.dialogs.ControllerEF;
 import javax.swing.JOptionPane;
 
 public class EstadosFinalesDialog extends javax.swing.JDialog {
-    ControllerEF controlador;
+    private String[] estadosFinales;
 
     public EstadosFinalesDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        controlador=new ControllerEF();
         initComponents();
-        this.setLocationRelativeTo(parent);        
+        this.setLocationRelativeTo(parent);
+        this.setVisible(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -67,9 +66,8 @@ public class EstadosFinalesDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
-        // TODO add your handling code here:
         try{
-            controlador.ingresarEstadosFinales(textEstadosFinales.getText().split(","));
+            estadosFinales = textEstadosFinales.getText().split(",");
             this.dispose();            
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "No se pudo ingresar el/los estado/s final/es", "Error", WIDTH);
@@ -81,4 +79,8 @@ public class EstadosFinalesDialog extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField textEstadosFinales;
     // End of variables declaration//GEN-END:variables
+
+    public String[] getEstadosFinales() {
+        return estadosFinales;
+    }
 }

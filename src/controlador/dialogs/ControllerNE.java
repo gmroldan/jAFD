@@ -8,6 +8,6 @@ import modelo.AutomataFinito;
 
 public class ControllerNE {
     public void ingresarEstados(int cantidad){
-        AutomataFinito.ingresarEstados(cantidad);
+//        AutomataFinito.ingresarEstados(cantidad);
     }    
 }

@@ -2,25 +2,23 @@
  *  Copyright (C) 2011  Gerardo Martín Roldán
  *  GNU General Pulbic License
  */
-package vista;
+package vista.dialogs;
 
-import controlador.dialogs.ControllerNT;
 import javax.swing.JOptionPane;
-import modelo.AutomataFinito;
 
 public class NuevaTransicionDialog extends javax.swing.JDialog {
-    private ControllerNT controlador;
-    private int qActual=0,simboloPos=0;
-    private String simboloActual=AutomataFinito.getAlfabeto().getSimbolos().get(0);
-    private int topeQ=AutomataFinito.getEstados().size()-1;
-    private String ultimoSimbolo=AutomataFinito.getAlfabeto().getSimbolos().get(AutomataFinito.getAlfabeto().getSimbolos().size()-1);
+    private int estadoActual;
+    private int proximoEstado;
+    private String simboloActual;
     
-    public NuevaTransicionDialog(java.awt.Frame parent, boolean modal) {
+    public NuevaTransicionDialog(java.awt.Frame parent, boolean modal, int estadoActual, String simboloActual) {
         super(parent, modal);
-        controlador=new ControllerNT();
+        this.estadoActual = estadoActual;
+        this.simboloActual = simboloActual;
         initComponents();
-        actualizarLabels();
-        this.setLocationRelativeTo(parent);        
+        actualizarCampos();
+        this.setLocationRelativeTo(parent);
+        this.setVisible(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -100,47 +98,17 @@ public class NuevaTransicionDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
-        // TODO add your handling code here:
-        int proximoEstado;
         try{
-            proximoEstado=Integer.parseInt(textTransicion.getText());    
-            controlador.nuevaTransicion(qActual, simboloActual, proximoEstado);
-            actualizarAtributos();
-            actualizarLabels();                
-            if(!verificar())                
-                this.dispose();
+            proximoEstado = Integer.parseInt(textTransicion.getText());
+            this.dispose();
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(this, "Debe ingresar un número entero", "ERROR", JOptionPane.ERROR_MESSAGE);
-        }        
+        }
     }//GEN-LAST:event_botonAceptarActionPerformed
     
-    private boolean verificar(){
-        boolean resultado=true;        
-        if(topeQ==-1)
-            resultado=false;
-        return resultado;
-    }
-    
-    private void actualizarAtributos(){                
-        if(qActual!=topeQ && simboloActual.equals(ultimoSimbolo)){                
-            qActual++;
-            simboloPos=0;
-            simboloActual=AutomataFinito.getAlfabeto().getSimbolos().get(0);
-        }
-        else{
-            if(qActual==topeQ && simboloActual.equals(ultimoSimbolo))
-                topeQ=-1;
-            else{
-                simboloPos++;
-                simboloActual=AutomataFinito.getAlfabeto().getSimbolos().get(simboloPos);
-            }            
-        }
-    }
-    
-    private void actualizarLabels(){
-        lbQActual.setText(""+qActual);
+    private void actualizarCampos(){
+        lbQActual.setText("" + estadoActual);
         lbSimbolo.setText(simboloActual);
-        textTransicion.setText(null);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -152,4 +120,8 @@ public class NuevaTransicionDialog extends javax.swing.JDialog {
     private javax.swing.JLabel lbSimbolo;
     private javax.swing.JTextField textTransicion;
     // End of variables declaration//GEN-END:variables
+
+    public int getProximoEstado() {
+        return proximoEstado;
+    }
 }

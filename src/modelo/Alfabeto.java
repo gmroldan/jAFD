@@ -16,7 +16,7 @@ public class Alfabeto {
      * Constructor por defecto
      */
     public Alfabeto(){
-        simbolos=new ArrayList<String>();
+        simbolos = new ArrayList<String>();
     }
     
     /*
@@ -46,6 +46,11 @@ public class Alfabeto {
         
     public boolean pertenece(String simbolo){       
         return simbolos.contains(simbolo);
+    }
+
+    @Override
+    public String toString() {
+        return simbolos.toString();
     }
 
     /*

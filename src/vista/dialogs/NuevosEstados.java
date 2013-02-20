@@ -4,17 +4,16 @@
  */
 package vista.dialogs;
 
-import controlador.dialogs.ControllerNE;
 import javax.swing.JOptionPane;
 
-public class NuevosEstados extends javax.swing.JDialog {
-    private ControllerNE controlador;
+public class NuevosEstados extends javax.swing.JDialog {    
+    private int cantidadEstados;
     
     public NuevosEstados(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
-        controlador=new ControllerNE();
+        super(parent, modal);        
         initComponents();
-        this.setLocationRelativeTo(parent);        
+        this.setLocationRelativeTo(parent);
+        this.setVisible(true);
     }
     
     @SuppressWarnings("unchecked")
@@ -69,12 +68,11 @@ public class NuevosEstados extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonOkActionPerformed
-        // TODO add your handling code here:
         try{
-            controlador.ingresarEstados(Integer.parseInt(textQ.getText()));
+            cantidadEstados = Integer.parseInt(textQ.getText());
             this.dispose();
-        }catch(NumberFormatException e){
-         JOptionPane.showMessageDialog(this, "Debe ingresar un número entero", "ERROR", JOptionPane.ERROR_MESSAGE);                   
+        }catch(NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Debe ingresar un número entero", "ERROR", JOptionPane.ERROR_MESSAGE);                   
         }                
     }//GEN-LAST:event_botonOkActionPerformed
 
@@ -83,4 +81,8 @@ public class NuevosEstados extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField textQ;
     // End of variables declaration//GEN-END:variables
+
+    public int getCantidadEstados() {
+        return cantidadEstados;
+    }
 }

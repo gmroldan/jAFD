@@ -8,6 +8,6 @@ import modelo.AutomataFinito;
 
 public class ControllerNT {
     public void nuevaTransicion(int estadoActual,String simbolo,int proximoEstado){
-        AutomataFinito.ingresarTransiciones(estadoActual, simbolo, proximoEstado);
+//        AutomataFinito.ingresarTransiciones(estadoActual, simbolo, proximoEstado);
     }
 }

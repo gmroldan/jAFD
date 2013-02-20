@@ -35,7 +35,7 @@ public class Configuracion {
     }
     
     public boolean perteneceAlfabeto(String palabra){
-        boolean resultado=true;
+        boolean resultado = true;
         for(int i = 0; i < palabra.length(); i++){
             if(!alfabeto.pertenece(String.valueOf(palabra.charAt(i)))){
                 resultado=false;

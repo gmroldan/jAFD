@@ -28,6 +28,7 @@ public class AcercaDeDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Acerca de");
+        setResizable(false);
 
         botonAceptar.setText("Aceptar");
         botonAceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -54,6 +55,7 @@ public class AcercaDeDialog extends javax.swing.JDialog {
         jLabel11.setText("Email:");
 
         jLabel12.setText("gmroldanutn@gmail.com");
+        jLabel12.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -114,7 +116,6 @@ public class AcercaDeDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
-        // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_botonAceptarActionPerformed
 

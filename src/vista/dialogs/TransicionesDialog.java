@@ -2,34 +2,32 @@
  *  Copyright (C) 2011  Gerardo Martín Roldán
  *  GNU General Pulbic License
  */
-package vista;
+package vista.dialogs;
 
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
-import modelo.AutomataFinito;
 import modelo.Transicion;
 
 public class TransicionesDialog extends javax.swing.JDialog {
-    private DefaultTableModel modelo=new DefaultTableModel();
+    private ArrayList<Transicion> transiciones;
         
-    public TransicionesDialog(java.awt.Frame parent, boolean modal) {
+    public TransicionesDialog(java.awt.Frame parent, boolean modal, ArrayList<Transicion> transiciones) {
         super(parent, modal);
+        this.transiciones = transiciones;
         initComponents();
-        cargarTransicion();
+        actualizarTabla();
         setLocationRelativeTo(parent);                
     }   
     
-    private void cargarTransicion(){
-        modelo.setColumnCount(0);
+    private void actualizarTabla(){
+        DefaultTableModel modelo = (DefaultTableModel) tablaDeTransiciones.getModel();
         modelo.setRowCount(0);
-        modelo.addColumn("q Actual");
-        modelo.addColumn("Letra");
-        modelo.addColumn("Próximo q");
-        Object[] fila=new Object[3];
-        for(Transicion t:AutomataFinito.getTransiciones()){
-            fila[0]=t.getEstadoActual();
-            fila[1]=t.getSimbolo();
-            fila[2]=t.getProximoEstado();            
-            modelo.addRow(fila);   
+        Object[] fila = new Object[3];
+        for(Transicion t: transiciones){
+            fila[0] = t.getEstadoActual();
+            fila[1] = t.getSimbolo();
+            fila[2] = t.getProximoEstado();            
+            modelo.addRow(fila);
         }                             
         tablaDeTransiciones.setModel(modelo);
     }
@@ -47,15 +45,21 @@ public class TransicionesDialog extends javax.swing.JDialog {
 
         tablaDeTransiciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "q Actual", "Símbolo", "Próximo q"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tablaDeTransiciones.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tablaDeTransiciones);
 
         botonAceptar.setText("Aceptar");
@@ -90,13 +94,12 @@ public class TransicionesDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
-        // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAceptar;
     private javax.swing.JScrollPane jScrollPane1;
-    public static javax.swing.JTable tablaDeTransiciones;
+    private javax.swing.JTable tablaDeTransiciones;
     // End of variables declaration//GEN-END:variables
 }

@@ -8,6 +8,6 @@ import modelo.AutomataFinito;
 
 public class ControllerEF {
     public void ingresarEstadosFinales(String[] texto) throws Exception{
-        AutomataFinito.ingresarEstadosFinales(texto);        
+//        AutomataFinito.ingresarEstadosFinales(texto);        
     }
 }

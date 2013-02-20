@@ -4,17 +4,14 @@
  */
 package vista.dialogs;
 
-import controlador.dialogs.ControllerNA;
-import javax.swing.JOptionPane;
-
 public class NuevoAlfabeto extends javax.swing.JDialog {
-    private ControllerNA controlador;    
+    private String[] alfabetoAuxiliar;
     
     public NuevoAlfabeto(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        controlador=new ControllerNA();
         initComponents();
-        this.setLocationRelativeTo(parent);                
+        this.setLocationRelativeTo(parent);
+        this.setVisible(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -67,14 +64,11 @@ public class NuevoAlfabeto extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonOkActionPerformed
-        // TODO add your handling code here:                
-        String[] texto=textAlfabeto.getText().split(",");        
-        try {                        
-            controlador.ingresarAlfabeto(texto.length, texto);            
+        alfabetoAuxiliar = textAlfabeto.getText().split(",");
+        if(alfabetoAuxiliar.length > 1) {
             this.dispose();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "No se pudo ingresar el alfabeto", "Error", JOptionPane.ERROR_MESSAGE);             
-        }                
+        }
+//            JOptionPane.showMessageDialog(null, "No se pudo ingresar el alfabeto", "Error", JOptionPane.ERROR_MESSAGE);
     }//GEN-LAST:event_botonOkActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -82,4 +76,8 @@ public class NuevoAlfabeto extends javax.swing.JDialog {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JTextField textAlfabeto;
     // End of variables declaration//GEN-END:variables
+
+    public String[] getAlfabetoAuxiliar() {
+        return alfabetoAuxiliar;
+    }
 }

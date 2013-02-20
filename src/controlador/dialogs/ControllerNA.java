@@ -9,9 +9,9 @@ import modelo.AutomataFinito;
 
 public class ControllerNA {    
     public void ingresarAlfabeto(int cantidad,String[] texto) throws Exception{
-        Alfabeto alfabetoActual=new Alfabeto();
+        Alfabeto alfabetoActual = new Alfabeto();
         alfabetoActual.ingresarSimbolos(cantidad, texto);
-        AutomataFinito.setAlfabeto(alfabetoActual);
+//        AutomataFinito.setAlfabeto(alfabetoActual);
     }
     
 }
