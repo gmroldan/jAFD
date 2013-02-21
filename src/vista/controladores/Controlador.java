@@ -2,14 +2,14 @@
  *  Copyright (C) 2011  Gerardo Martín Roldán
  *  GNU General Pulbic License
  */
-package controlador;
+package vista.controladores;
 
 import java.util.ArrayList;
 import modelo.AutomataFinito;
 import modelo.Transicion;
 import modelo.excepciones.MachineException;
 
-public class ControllerVP {
+public class Controlador {
     private AutomataFinito afdActual;
     
     public void nuevoAFD(){

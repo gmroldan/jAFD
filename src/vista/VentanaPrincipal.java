@@ -4,10 +4,10 @@
  */
 package vista;
 
-import controlador.ControllerVP;
 import javax.swing.JOptionPane;
 import modelo.excepciones.MachineException;
 import vista.ayuda.AcercaDeDialog;
+import vista.controladores.Controlador;
 import vista.dialogs.EstadosFinalesDialog;
 import vista.dialogs.NuevaTransicionDialog;
 import vista.dialogs.NuevoAlfabeto;
@@ -15,10 +15,10 @@ import vista.dialogs.NuevosEstados;
 import vista.dialogs.TransicionesDialog;
 
 public class VentanaPrincipal extends javax.swing.JFrame {
-    private ControllerVP controlador;    
+    private Controlador controlador;    
     
     public VentanaPrincipal() {
-        controlador = new ControllerVP();
+        controlador = new Controlador();
         initComponents();
         setLocationRelativeTo(null);        
     }
