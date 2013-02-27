@@ -7,16 +7,7 @@ package modelo;
 import java.util.ArrayList;
 import modelo.excepciones.MachineException;
 
-
-public class AutomataFinito {
-    /*
-     * Atributos
-     */
-    private ArrayList<Integer> estados;
-    private ArrayList<Integer> estadosFinales;
-    private ArrayList<Transicion> transiciones;
-    private Alfabeto alfabeto;      
-    private Configuracion configuracion;
+public class AutomataFinito extends Maquina {
         
     /*
      * Constuctor por defecto
@@ -28,61 +19,10 @@ public class AutomataFinito {
     }
     
     /*
-     * Métodos
-     */    
-    public void ingresarAlfabeto(String[] texto) throws Exception {
-        alfabeto = new Alfabeto();
-        alfabeto.ingresarSimbolos(texto.length, texto);
-    }
-    
-    public void ingresarEstados(int cantidad){        
-        for(int i = 0; i < cantidad; i++) {
-            estados.add(i);
-        }        
-    }
-    
-    public void ingresarEstadosFinales(String[] texto) throws Exception{         
-        for(int i = 0; i < texto.length; i++){
-            if(Integer.parseInt(texto[i]) > 0 && Integer.parseInt(texto[i]) < getEstados().size()){
-                if(pertenece(Integer.parseInt(texto[i]))){
-                    if(!perteneceFinales(Integer.parseInt(texto[i]))) {
-                        estadosFinales.add(Integer.parseInt(texto[i]));
-                    }                
-                    else {
-                        throw new Exception();
-                    }
-                }                             
-                else {
-                    throw new Exception();
-                }
-            }
-            else {
-                throw new Exception();
-            }                
-        }
-    }
-    
-    private boolean pertenece(int estadoFinal){
-        return estados.contains(estadoFinal);
-    }
-    
-    private boolean perteneceFinales(int estado){
-        return estadosFinales.contains(estado);
-    }
-    
-    public String getSimbolo(int index) {
-        return alfabeto.getSimbolos().get(index);
-    }
-    
-    public void nuevaTransicion(int estadoActual, String simbolo, int proximoEstado) throws MachineException{
-        if(pertenece(proximoEstado)) {
-            transiciones.add(new Transicion(estadoActual, simbolo, proximoEstado));
-        } else {
-            throw new MachineException("El estado ingresado no pertenece al Conjunto de Estados del AFD");
-        }
-    }
-    
-    public String simular(String palabra){        
+     * Implementación de métodos abstractos de la SuperClase
+     */
+    @Override
+    public String simular(String palabra) throws MachineException{        
         int pos = 0;
         configuracion = new Configuracion(getAlfabeto());
         configuracion.ingresarPalabra(palabra);
@@ -109,53 +49,5 @@ public class AutomataFinito {
             resultado = resultado.concat("\nCadena Rechazada\n\n");
         }                     
         return resultado;
-    }
-    
-    private int proximoEstado(int c, int p){
-        int proximoQ = 0;
-        for(Transicion t: transiciones){
-            if(t.getEstadoActual() == c && t.getSimbolo().equals(alfabeto.getSimbolos().get(p))) {
-                proximoQ=t.getProximoEstado();
-            }
-        }
-        return proximoQ;
-    }
-    
-    private boolean aceptarPalabra(int posicioneCabezal){
-        boolean resultado = false;
-        for(Integer e: estadosFinales){
-            if(e == posicioneCabezal){
-                resultado = true;
-                break;
-            }
-        }            
-        return resultado;
-    }
-    
-    /*
-     * Métodos accesores y mutadores
-     */
-    public Configuracion getConfiguracion() {
-        return configuracion;
-    }   
-
-    public ArrayList<Integer> getEstados() {
-        return estados;
-    }
-
-    public ArrayList<Integer> getEstadosFinales() {
-        return estadosFinales;
-    }
-
-    public Alfabeto getAlfabeto() {
-        return alfabeto;
-    }
-
-    public void setAlfabeto(Alfabeto alfabeto) {
-        this.alfabeto = alfabeto;
-    }
-        
-    public ArrayList<Transicion> getTransiciones() {
-        return transiciones;
     }
 }

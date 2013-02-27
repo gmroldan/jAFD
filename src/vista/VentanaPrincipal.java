@@ -266,9 +266,11 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         textSimulacion.setText(null);
         try{            
             textSimulacion.setText(controlador.simularAFD(textPalabra.getText()));
-        }catch (Exception e){
-            JOptionPane.showMessageDialog(this, "No se pudo evaluar ninguna cadena", "Error", JOptionPane.ERROR_MESSAGE);
-       }
+        }catch (MachineException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (NullPointerException ex) {
+            JOptionPane.showMessageDialog(this, "No se pudo evaluar ninguna cadena. No se detectó ningún AFD", "Error", JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_botonEvaluarActionPerformed
 
     private void opcionAcercaDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionAcercaDeActionPerformed

@@ -6,65 +6,66 @@ package vista.controladores;
 
 import java.util.ArrayList;
 import modelo.AutomataFinito;
+import modelo.Maquina;
 import modelo.Transicion;
 import modelo.excepciones.MachineException;
 
 public class Controlador {
-    private AutomataFinito afdActual;
+    private Maquina maquinaActual;
     
     public void nuevoAFD(){
-        afdActual = new AutomataFinito();
+        maquinaActual = new AutomataFinito();
     }
     
     public void ingresarAlfabeto(String[] texto) throws Exception {
-        afdActual.ingresarAlfabeto(texto);
+        maquinaActual.ingresarAlfabeto(texto);
     }
     
     public void ingresarEstados(int cantidad) {
-        afdActual.ingresarEstados(cantidad);
+        maquinaActual.ingresarEstados(cantidad);
     }
     
     public void ingresarEstadosFinales(String[] texto) throws Exception{
-        afdActual.ingresarEstadosFinales(texto);       
+        maquinaActual.ingresarEstadosFinales(texto);       
     }
     
     public void nuevaTransicion(int qActual, String simboloActual, int proximoEstado) throws MachineException {
-        afdActual.nuevaTransicion(qActual, simboloActual, proximoEstado);
+        maquinaActual.nuevaTransicion(qActual, simboloActual, proximoEstado);
     }
     
-    public String simularAFD(String palabra){
-        return afdActual.simular(palabra);
+    public String simularAFD(String palabra) throws MachineException{
+        return maquinaActual.simular(palabra);
     }
 
     public AutomataFinito getAfdActual() {
-        return afdActual;
+        return (AutomataFinito)maquinaActual;
     }
     
     public String getSimbolo(int index) {
-        return afdActual.getSimbolo(index);
+        return maquinaActual.getSimbolo(index);
     }
     
     public String getAlfabeto() {
-        return afdActual.getAlfabeto().toString();
+        return maquinaActual.getAlfabeto().toString();
     }
     
     public String getEstados() {
-        return afdActual.getEstados().toString();
+        return maquinaActual.getEstados().toString();
     }
     
     public String getEstadosFinales() {
-        return afdActual.getEstadosFinales().toString();
+        return maquinaActual.getEstadosFinales().toString();
     }
     
     public ArrayList<Transicion> getTransiciones() {
-        return afdActual.getTransiciones();
+        return maquinaActual.getTransiciones();
     }
     
     public int getCantidadEstados() {
-        return afdActual.getEstados().size();
+        return maquinaActual.getEstados().size();
     }
     
     public int getCantidadSimbolos() {
-        return afdActual.getAlfabeto().getSimbolos().size();
+        return maquinaActual.getAlfabeto().getSimbolos().size();
     }
 }

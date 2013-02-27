@@ -4,7 +4,7 @@
  */
 package modelo;
 
-import javax.swing.JOptionPane;
+import modelo.excepciones.MachineException;
 
 public class Configuracion {
     /*
@@ -24,21 +24,19 @@ public class Configuracion {
     /*
      * Métodos
      */
-    public void ingresarPalabra(String palabra){        
-        if(!perteneceAlfabeto(palabra)) {
-            //modificar esta línea
-            JOptionPane.showMessageDialog(null, "Verifique la cadena ingresada", "ERROR", JOptionPane.ERROR_MESSAGE);
-        }
-        else {
-            this.palabra=palabra;
+    public void ingresarPalabra(String palabra) throws MachineException {        
+        if(!perteneceAlfabeto(palabra)) {            
+            throw new MachineException("Verifique la cadena ingresada");
+        } else {
+            this.palabra = palabra;
         }                        
     }
     
-    public boolean perteneceAlfabeto(String palabra){
+    public boolean perteneceAlfabeto(String palabra) {
         boolean resultado = true;
         for(int i = 0; i < palabra.length(); i++){
             if(!alfabeto.pertenece(String.valueOf(palabra.charAt(i)))){
-                resultado=false;
+                resultado = false;
                 break;
             }
         }
