@@ -37,8 +37,8 @@ public class Controlador {
         return maquinaActual.simular(palabra);
     }
 
-    public AutomataFinito getAfdActual() {
-        return (AutomataFinito)maquinaActual;
+    public Maquina getMaquinaActual() {
+        return maquinaActual;
     }
     
     public String getSimbolo(int index) {

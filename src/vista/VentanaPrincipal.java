@@ -279,7 +279,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
 
     private void opcionTransicionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionTransicionesActionPerformed
         try{
-            if(controlador.getAfdActual() != null) {
+            if(controlador.getMaquinaActual() != null) {
                 new TransicionesDialog(this, true, controlador.getTransiciones()).setVisible(true);
             } else {
                 throw new Exception();
