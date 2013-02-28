@@ -4,6 +4,7 @@
  */
 package vista.dialogs;
 
+import java.awt.Event;
 import javax.swing.JOptionPane;
 
 public class NuevosEstados extends javax.swing.JDialog {    
@@ -26,8 +27,15 @@ public class NuevosEstados extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Nuevos Estados");
+        setResizable(false);
 
         jLabel1.setText("Cantidad de estados (Q) del AFD:");
+
+        textQ.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textQKeyPressed(evt);
+            }
+        });
 
         botonOk.setText("Ok");
         botonOk.addActionListener(new java.awt.event.ActionListener() {
@@ -68,14 +76,24 @@ public class NuevosEstados extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonOkActionPerformed
+        capturarDatos();             
+    }//GEN-LAST:event_botonOkActionPerformed
+
+    private void textQKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textQKeyPressed
+        if(evt.getKeyCode() == Event.ENTER) {
+            capturarDatos();
+        }
+    }//GEN-LAST:event_textQKeyPressed
+
+    private void capturarDatos() {
         try{
             cantidadEstados = Integer.parseInt(textQ.getText());
             this.dispose();
         }catch(NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Debe ingresar un número entero", "ERROR", JOptionPane.ERROR_MESSAGE);                   
-        }                
-    }//GEN-LAST:event_botonOkActionPerformed
-
+        }   
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonOk;
     private javax.swing.JLabel jLabel1;

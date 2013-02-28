@@ -4,6 +4,7 @@
  */
 package vista.dialogs;
 
+import java.awt.Event;
 import javax.swing.JOptionPane;
 
 public class EstadosFinalesDialog extends javax.swing.JDialog {
@@ -26,8 +27,15 @@ public class EstadosFinalesDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Nuevos Estados Finales");
+        setResizable(false);
 
         jLabel1.setText("Ingrese los estados finales (F) separados por comas(,):");
+
+        textEstadosFinales.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textEstadosFinalesKeyPressed(evt);
+            }
+        });
 
         botonAceptar.setText("Aceptar");
         botonAceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -66,14 +74,24 @@ public class EstadosFinalesDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
+        capturarDatos();
+    }//GEN-LAST:event_botonAceptarActionPerformed
+
+    private void textEstadosFinalesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textEstadosFinalesKeyPressed
+        if(evt.getKeyCode() == Event.ENTER) {
+            capturarDatos();
+        }
+    }//GEN-LAST:event_textEstadosFinalesKeyPressed
+
+    private void capturarDatos() {
         try{
             estadosFinales = textEstadosFinales.getText().split(",");
             this.dispose();            
         }catch(Exception e){
             JOptionPane.showMessageDialog(null, "No se pudo ingresar el/los estado/s final/es", "Error", WIDTH);
         }
-    }//GEN-LAST:event_botonAceptarActionPerformed
-
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAceptar;
     private javax.swing.JLabel jLabel1;

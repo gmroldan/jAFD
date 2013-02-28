@@ -4,6 +4,7 @@
  */
 package vista.dialogs;
 
+import java.awt.Event;
 import javax.swing.JOptionPane;
 
 public class NuevaTransicionDialog extends javax.swing.JDialog {
@@ -44,6 +45,12 @@ public class NuevaTransicionDialog extends javax.swing.JDialog {
         });
 
         jLabel1.setText("transiciona al estado");
+
+        textTransicion.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textTransicionKeyPressed(evt);
+            }
+        });
 
         jLabel2.setText("Estado");
 
@@ -98,17 +105,27 @@ public class NuevaTransicionDialog extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
+        capturarDatos();
+    }//GEN-LAST:event_botonAceptarActionPerformed
+
+    private void textTransicionKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textTransicionKeyPressed
+        if(evt.getKeyCode() == Event.ENTER) {
+            capturarDatos();
+        }
+    }//GEN-LAST:event_textTransicionKeyPressed
+        
+    private void actualizarCampos() {
+        lbQActual.setText("" + estadoActual);
+        lbSimbolo.setText(simboloActual);
+    }
+    
+    private void capturarDatos() {
         try{
             proximoEstado = Integer.parseInt(textTransicion.getText());
             this.dispose();
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(this, "Debe ingresar un número entero", "ERROR", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_botonAceptarActionPerformed
-    
-    private void actualizarCampos(){
-        lbQActual.setText("" + estadoActual);
-        lbSimbolo.setText(simboloActual);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

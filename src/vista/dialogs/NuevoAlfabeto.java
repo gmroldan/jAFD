@@ -4,6 +4,8 @@
  */
 package vista.dialogs;
 
+import java.awt.Event;
+
 public class NuevoAlfabeto extends javax.swing.JDialog {
     private String[] alfabetoAuxiliar;
     
@@ -24,8 +26,15 @@ public class NuevoAlfabeto extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Nuevo Alfabeto");
+        setResizable(false);
 
         jLabel1.setText("Ingrese el alfabeto con los símbolos separadas por comas(,):");
+
+        textAlfabeto.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textAlfabetoKeyPressed(evt);
+            }
+        });
 
         botonOk.setText("Ok");
         botonOk.addActionListener(new java.awt.event.ActionListener() {
@@ -64,13 +73,23 @@ public class NuevoAlfabeto extends javax.swing.JDialog {
     }// </editor-fold>//GEN-END:initComponents
 
     private void botonOkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonOkActionPerformed
+        capturarDatos();
+    }//GEN-LAST:event_botonOkActionPerformed
+
+    private void textAlfabetoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textAlfabetoKeyPressed
+        if(evt.getKeyCode() == Event.ENTER) {
+            capturarDatos();
+        }
+    }//GEN-LAST:event_textAlfabetoKeyPressed
+
+    private void capturarDatos() {
         alfabetoAuxiliar = textAlfabeto.getText().split(",");
         if(alfabetoAuxiliar.length > 1) {
             this.dispose();
         }
 //            JOptionPane.showMessageDialog(null, "No se pudo ingresar el alfabeto", "Error", JOptionPane.ERROR_MESSAGE);
-    }//GEN-LAST:event_botonOkActionPerformed
-
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonOk;
     private javax.swing.JLabel jLabel1;

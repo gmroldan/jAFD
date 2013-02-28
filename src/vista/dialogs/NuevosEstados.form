@@ -4,6 +4,7 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="2"/>
     <Property name="title" type="java.lang.String" value="Nuevos Estados"/>
+    <Property name="resizable" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -62,6 +63,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="textQ">
+      <Events>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textQKeyPressed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="botonOk">
       <Properties>

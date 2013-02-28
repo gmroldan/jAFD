@@ -4,6 +4,7 @@
  */
 package vista;
 
+import java.awt.Event;
 import javax.swing.JOptionPane;
 import modelo.excepciones.MachineException;
 import vista.ayuda.AcercaDeDialog;
@@ -128,6 +129,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         );
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Cadena a Evaluar"));
+
+        textPalabra.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                textPalabraKeyPressed(evt);
+            }
+        });
 
         botonEvaluar.setText("Evaluar");
         botonEvaluar.addActionListener(new java.awt.event.ActionListener() {
@@ -263,14 +270,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_opcionNuevoActionPerformed
 
     private void botonEvaluarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEvaluarActionPerformed
-        textSimulacion.setText(null);
-        try{            
-            textSimulacion.setText(controlador.simularAFD(textPalabra.getText()));
-        }catch (MachineException ex) {
-            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        } catch (NullPointerException ex) {
-            JOptionPane.showMessageDialog(this, "No se pudo evaluar ninguna cadena. No se detectó ningún AFD", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        evaluarCadena();
     }//GEN-LAST:event_botonEvaluarActionPerformed
 
     private void opcionAcercaDeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_opcionAcercaDeActionPerformed
@@ -288,6 +288,12 @@ public class VentanaPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No se detectó ningún AFD", "Error", JOptionPane.ERROR_MESSAGE);
         }        
     }//GEN-LAST:event_opcionTransicionesActionPerformed
+
+    private void textPalabraKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textPalabraKeyPressed
+        if(evt.getKeyCode() == Event.ENTER) {
+            evaluarCadena();
+        }
+    }//GEN-LAST:event_textPalabraKeyPressed
 
     private void ingresarAlfabeto() throws Exception {
         NuevoAlfabeto dialog = new NuevoAlfabeto(this, true);
@@ -324,6 +330,17 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                 }
             }            
+        }
+    }
+    
+    private void evaluarCadena() {
+        textSimulacion.setText(null);
+        try{            
+            textSimulacion.setText(controlador.simularAFD(textPalabra.getText()));
+        }catch (MachineException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (NullPointerException ex) {
+            JOptionPane.showMessageDialog(this, "No se pudo evaluar ninguna cadena. No se detectó ningún AFD", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
