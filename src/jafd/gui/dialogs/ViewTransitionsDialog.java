@@ -4,32 +4,35 @@
  */
 package jafd.gui.dialogs;
 
+import jafd.controller.JAfdController;
 import javax.swing.table.DefaultTableModel;
 import jafd.core.Transition;
 import java.util.List;
 
-public class ViewTransitionsDialog extends javax.swing.JDialog {
-    private List<Transition> transiciones;
+public class ViewTransitionsDialog extends javax.swing.JDialog {    
         
-    public ViewTransitionsDialog(java.awt.Frame parent, boolean modal, List<Transition> transiciones) {
+    public ViewTransitionsDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        this.transiciones = transiciones;
         initComponents();
-        actualizarTabla();
+        updateTable();
         setLocationRelativeTo(parent);                
     }   
     
-    private void actualizarTabla(){
-        DefaultTableModel modelo = (DefaultTableModel) tablaDeTransiciones.getModel();
-        modelo.setRowCount(0);
-        Object[] fila = new Object[3];
-        for(Transition t: transiciones){
-            fila[0] = t.getCurrentState();
-            fila[1] = t.getSymbol();
-            fila[2] = t.getNextState();            
-            modelo.addRow(fila);
-        }                             
-        tablaDeTransiciones.setModel(modelo);
+    private void updateTable() {
+        List<Transition> transitionsList = JAfdController.getInstance().getTransitions();
+        
+        DefaultTableModel model = (DefaultTableModel) tableTransitions.getModel();
+        model.setRowCount(0);
+        Object[] row = new Object[3];
+        
+        for(Transition t: transitionsList){
+            row[0] = t.getCurrentState();
+            row[1] = t.getSymbol();
+            row[2] = t.getNextState();            
+            model.addRow(row);
+        }
+        
+        tableTransitions.setModel(model);
     }
 
     @SuppressWarnings("unchecked")
@@ -37,14 +40,14 @@ public class ViewTransitionsDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        tablaDeTransiciones = new javax.swing.JTable();
+        tableTransitions = new javax.swing.JTable();
         botonAceptar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Transiciones");
         setResizable(false);
 
-        tablaDeTransiciones.setModel(new javax.swing.table.DefaultTableModel(
+        tableTransitions.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -60,8 +63,8 @@ public class ViewTransitionsDialog extends javax.swing.JDialog {
                 return canEdit [columnIndex];
             }
         });
-        tablaDeTransiciones.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tablaDeTransiciones);
+        tableTransitions.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tableTransitions);
 
         botonAceptar.setText("Aceptar");
         botonAceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -101,6 +104,6 @@ public class ViewTransitionsDialog extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton botonAceptar;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tablaDeTransiciones;
+    private javax.swing.JTable tableTransitions;
     // End of variables declaration//GEN-END:variables
 }

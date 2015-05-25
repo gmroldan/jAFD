@@ -279,13 +279,13 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void optionTransitionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optionTransitionsActionPerformed
         try {
-            if (jAfdController.getMaquinaActual() != null) {
-                new ViewTransitionsDialog(this, true, jAfdController.getTransitions()).setVisible(true);
-            } else {
-                throw new Exception();
+            if (jAfdController.getCurrentMachine() == null) {
+                throw new MachineException("No se detectó ningún AFD");
             }
-        } catch(Exception e) {
-            JOptionPane.showMessageDialog(this, "No se detectó ningún AFD", "Error", JOptionPane.ERROR_MESSAGE);
+            
+            new ViewTransitionsDialog(this, true).setVisible(true);
+        } catch(MachineException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }        
     }//GEN-LAST:event_optionTransitionsActionPerformed
 
@@ -297,33 +297,25 @@ public class MainWindow extends javax.swing.JFrame {
 
     private void enterAlphabet() throws Exception {
         NewAlphabetDialog dialog = new NewAlphabetDialog(this, true);
-        this.jAfdController.enterAlphabet(dialog.getAlfabetoAuxiliar());
         this.lblAlphabet.setText(jAfdController.getAlphabet());
     }
     
     private void enterStates() {
         NewStatesDialog dialog = new NewStatesDialog(this, true);
-        this.jAfdController.enterStates(dialog.getCantidadEstados());
         this.lblStates.setText(jAfdController.getStates());
     }
     
     private void enterFinalStates() throws Exception {
         FinalStatesDialog dialog = new FinalStatesDialog(this, true);
-        this.jAfdController.enterFinalStates(dialog.getEstadosFinales());
         this.lblFinalStates.setText(jAfdController.getFinalStates());
     }
     
     private void enterTransitions() {
         JOptionPane.showMessageDialog(this, "Se iniciará la carga de la tabla de transiciones", "", JOptionPane.INFORMATION_MESSAGE);
         
-        for (int i = 0; i < jAfdController.getNumberOfStates(); i++) {
+        for (int currentState = 0; currentState < jAfdController.getNumberOfStates(); currentState++) {
             for (Object symbol: jAfdController.getSymbols()) {
-                NewTransitionDialog dialog = new NewTransitionDialog(this, true, i, symbol.toString());
-                try {
-                    this.jAfdController.newTransition(i, symbol.toString(), dialog.getNextState());
-                } catch (MachineException ex) {
-                    JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                }
+                NewTransitionDialog dialog = new NewTransitionDialog(this, true, currentState, symbol.toString());
             }            
         }
     }

@@ -29,10 +29,10 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel1" alignment="1" pref="438" max="32767" attributes="1"/>
-                  <Component id="textAlfabeto" alignment="1" pref="438" max="32767" attributes="1"/>
+                  <Component id="textAlphabet" alignment="1" pref="438" max="32767" attributes="1"/>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="botonOk" min="-2" pref="95" max="-2" attributes="0"/>
+                      <Component id="btnOk" min="-2" pref="95" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -45,9 +45,9 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="textAlfabeto" min="-2" max="-2" attributes="0"/>
+              <Component id="textAlphabet" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="botonOk" min="-2" max="-2" attributes="0"/>
+              <Component id="btnOk" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
@@ -59,17 +59,17 @@
         <Property name="text" type="java.lang.String" value="Ingrese el alfabeto con los s&#xed;mbolos separadas por comas(,):"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="textAlfabeto">
+    <Component class="javax.swing.JTextField" name="textAlphabet">
       <Events>
-        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textAlfabetoKeyPressed"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textAlphabetKeyPressed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="botonOk">
+    <Component class="javax.swing.JButton" name="btnOk">
       <Properties>
         <Property name="text" type="java.lang.String" value="Ok"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonOkActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnOkActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

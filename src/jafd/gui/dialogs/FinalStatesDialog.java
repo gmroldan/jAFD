@@ -4,11 +4,12 @@
  */
 package jafd.gui.dialogs;
 
+import jafd.controller.JAfdController;
+import jafd.exceptions.MachineException;
 import java.awt.Event;
 import javax.swing.JOptionPane;
 
 public class FinalStatesDialog extends javax.swing.JDialog {
-    private String[] estadosFinales;
 
     public FinalStatesDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
@@ -22,8 +23,8 @@ public class FinalStatesDialog extends javax.swing.JDialog {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        textEstadosFinales = new javax.swing.JTextField();
-        botonAceptar = new javax.swing.JButton();
+        textFinalStates = new javax.swing.JTextField();
+        btnAccept = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Nuevos Estados Finales");
@@ -31,16 +32,16 @@ public class FinalStatesDialog extends javax.swing.JDialog {
 
         jLabel1.setText("Ingrese los estados finales (F) separados por comas(,):");
 
-        textEstadosFinales.addKeyListener(new java.awt.event.KeyAdapter() {
+        textFinalStates.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                textEstadosFinalesKeyPressed(evt);
+                textFinalStatesKeyPressed(evt);
             }
         });
 
-        botonAceptar.setText("Aceptar");
-        botonAceptar.addActionListener(new java.awt.event.ActionListener() {
+        btnAccept.setText("Aceptar");
+        btnAccept.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                botonAceptarActionPerformed(evt);
+                btnAcceptActionPerformed(evt);
             }
         });
 
@@ -51,11 +52,11 @@ public class FinalStatesDialog extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(textEstadosFinales)
+                    .addComponent(textFinalStates)
                     .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 403, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(botonAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnAccept, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -64,41 +65,44 @@ public class FinalStatesDialog extends javax.swing.JDialog {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addGap(12, 12, 12)
-                .addComponent(textEstadosFinales, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textFinalStates, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
-                .addComponent(botonAceptar)
+                .addComponent(btnAccept)
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
-        capturarDatos();
-    }//GEN-LAST:event_botonAceptarActionPerformed
+    private void btnAcceptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcceptActionPerformed
+        this.enterFinalStates();
+    }//GEN-LAST:event_btnAcceptActionPerformed
 
-    private void textEstadosFinalesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textEstadosFinalesKeyPressed
-        if(evt.getKeyCode() == Event.ENTER) {
-            capturarDatos();
+    private void textFinalStatesKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_textFinalStatesKeyPressed
+        if (evt.getKeyCode() == Event.ENTER) {
+            this.enterFinalStates();
         }
-    }//GEN-LAST:event_textEstadosFinalesKeyPressed
+    }//GEN-LAST:event_textFinalStatesKeyPressed
 
-    private void capturarDatos() {
-        try{
-            estadosFinales = textEstadosFinales.getText().split(",");
+    private void enterFinalStates() {
+        try {
+            String finalStates = textFinalStates.getText();
+            
+            if (finalStates == null || finalStates.isEmpty()) {
+                throw new MachineException("Invalid text.");
+            }
+            
+            JAfdController.getInstance().enterFinalStates(finalStates.split(","));
             this.dispose();            
-        }catch(Exception e){
-            JOptionPane.showMessageDialog(null, "No se pudo ingresar el/los estado/s final/es", "Error", WIDTH);
+        } catch(MachineException ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton botonAceptar;
+    private javax.swing.JButton btnAccept;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField textEstadosFinales;
+    private javax.swing.JTextField textFinalStates;
     // End of variables declaration//GEN-END:variables
-
-    public String[] getEstadosFinales() {
-        return estadosFinales;
-    }
+    
 }

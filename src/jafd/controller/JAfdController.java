@@ -24,7 +24,7 @@ public class JAfdController {
         this.machine = new DeterministicFiniteAutomaton();
     }
     
-    public void enterAlphabet(String[] alphabet) throws Exception {
+    public void enterAlphabet(String[] alphabet) throws MachineException {
         this.machine.createAlphabet(alphabet);
     }
     
@@ -32,7 +32,7 @@ public class JAfdController {
         this.machine.addStates(numberOfStates);
     }
     
-    public void enterFinalStates(String[] finalStates) throws Exception{
+    public void enterFinalStates(String[] finalStates) throws MachineException{
         this.machine.addFinalStates(finalStates);       
     }
     
@@ -44,7 +44,7 @@ public class JAfdController {
         return machine.simulate(word);
     }
 
-    public Machine getMaquinaActual() {
+    public Machine getCurrentMachine() {
         return machine;
     }
     

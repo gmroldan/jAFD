@@ -15,7 +15,7 @@ public abstract class Machine {
     protected Set<Integer> finalStates;
     protected List<Transition> transitions;
 
-    public void createAlphabet(String[] symbols) throws Exception {
+    public void createAlphabet(String[] symbols) throws MachineException {
         this.alphabet = new Alphabet();
         this.alphabet.addSymbols(symbols);
     }

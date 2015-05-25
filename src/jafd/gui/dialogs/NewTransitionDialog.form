@@ -30,20 +30,20 @@
                   <Group type="102" attributes="0">
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lbQActual" min="-2" pref="13" max="-2" attributes="0"/>
+                      <Component id="lblCurrentState" min="-2" pref="13" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lbSimbolo" min="-2" pref="16" max="-2" attributes="0"/>
+                      <Component id="lbSymbol" min="-2" pref="16" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="textTransicion" min="-2" pref="34" max="-2" attributes="0"/>
+                      <Component id="textTransition" min="-2" pref="34" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                      <Component id="botonAceptar" min="-2" pref="98" max="-2" attributes="0"/>
+                      <Component id="btnAccept" min="-2" pref="98" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -56,26 +56,26 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="textTransicion" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="textTransition" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lbQActual" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lblCurrentState" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lbSimbolo" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lbSymbol" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="botonAceptar" min="-2" max="-2" attributes="0"/>
+              <Component id="btnAccept" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="javax.swing.JButton" name="botonAceptar">
+    <Component class="javax.swing.JButton" name="btnAccept">
       <Properties>
         <Property name="text" type="java.lang.String" value="Aceptar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botonAceptarActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAcceptActionPerformed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
@@ -83,9 +83,9 @@
         <Property name="text" type="java.lang.String" value="transiciona al estado"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="textTransicion">
+    <Component class="javax.swing.JTextField" name="textTransition">
       <Events>
-        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textTransicionKeyPressed"/>
+        <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="textTransitionKeyPressed"/>
       </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
@@ -93,7 +93,7 @@
         <Property name="text" type="java.lang.String" value="Estado"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lbQActual">
+    <Component class="javax.swing.JLabel" name="lblCurrentState">
       <Properties>
         <Property name="text" type="java.lang.String" value="-"/>
       </Properties>
@@ -103,7 +103,7 @@
         <Property name="text" type="java.lang.String" value="con la letra"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JLabel" name="lbSimbolo">
+    <Component class="javax.swing.JLabel" name="lbSymbol">
       <Properties>
         <Property name="text" type="java.lang.String" value="-"/>
       </Properties>
